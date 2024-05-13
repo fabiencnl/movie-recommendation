@@ -35,7 +35,4 @@ public class Movie {
     private Integer availableCopies;
 
 
-    public Movie save(Movie movie) {
-        return null;
-    }
 }
