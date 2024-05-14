@@ -25,13 +25,13 @@ public class Movie {
     @Column(name = "id", unique = true, updatable = false)
     private String id;
     private String title;
-    private String genre;
-    private Integer releaseYear;
-    private String director;
-    private String[] actors;
-    private Integer duration;
-    private Integer rating;
-    private String photoUrl;
+    //private String genre;
+    private String release_date;
+    private String overview;
+    //private String[] actors;
+    //private Integer duration;
+    private Integer vote_average;
+    private String poster_path;
     private Integer availableCopies;
 
 
