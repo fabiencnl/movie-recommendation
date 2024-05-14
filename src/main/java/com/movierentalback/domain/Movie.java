@@ -26,12 +26,12 @@ public class Movie {
     private String id;
     private String title;
     //private String genre;
-    private String release_date;
+    private String releaseDate;
     private String overview;
     //private String[] actors;
     //private Integer duration;
-    private Integer vote_average;
-    private String poster_path;
+    private float voteAverage;
+    private String posterPath;
     private Integer availableCopies;
 
 

@@ -27,6 +27,7 @@ public class MovieController {
                                                     @RequestParam(defaultValue = "50") int size) {
         Page<Movie> moviesPage = movieService.getAllMovies(PageRequest.of(page, size));
         List<Movie> movies = moviesPage.getContent();
+        System.out.println("list : " + movies);
         return ResponseEntity.ok(movies);
     }
 }

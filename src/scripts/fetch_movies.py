@@ -3,6 +3,10 @@ import psycopg2
 from psycopg2 import sql
 import random
 import string
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # Function to generate a random id for a given movie
@@ -17,16 +21,19 @@ def generate_random_copy_count():
 
 
 # Function to fetch movie data from the API
-def fetch_movies\
-                (page_index):
+def fetch_movies(page_index):
+    # Access the API key from the environment variables
+    api_key = os.environ.get('API_TOKEN')
+
     try:
         # API endpoint URL
         url = "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=" + str(page_index)
 
         headers = {
             "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNTQzNGQwZDcyNTBkNDk1MTkxZWI4MGRkMDA1NzMxMyIsInN1YiI6IjY2NDIzMDQ4N2FhOTY0MjkxM2MxOWZjMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IkJ7l-6G2jhcaa8sil47doMkVVWdMfmWOigvM-Spals"
+            "Authorization": "Bearer " + api_key
         }
+
         # Send GET request to fetch movie data
         response = requests.get(url, headers=headers)
         # After sending the GET request
@@ -45,7 +52,6 @@ def fetch_movies\
 
 # Function to insert movie data into PostgreSQL database
 def insert_movies(movies):
-
     try:
         # Connect to PostgreSQL database
         conn = psycopg2.connect(
@@ -60,7 +66,6 @@ def insert_movies(movies):
 
         # Iterate through each movie and insert into database
         for movie in movies['results']:
-
             # Generate random id
             random_id = generate_random_string(10)  # Generate a random string of length 10
 
@@ -90,7 +95,7 @@ def insert_movies(movies):
 def main():
     # Fetch 300 pages of movie data from the API
     i = 1
-    while i < 301:
+    while i < 151:
         movies = fetch_movies(i)
 
         # If movie data is retrieved successfully, insert into database
