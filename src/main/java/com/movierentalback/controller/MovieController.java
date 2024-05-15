@@ -4,6 +4,8 @@ import com.movierentalback.domain.Movie;
 import com.movierentalback.service.MovieService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +25,13 @@ public class MovieController {
 
     // Endpoint to fetch all movies
     @GetMapping
-    public ResponseEntity<List<Movie>> getAllMovies(@RequestParam(defaultValue = "0") int page,
-                                                    @RequestParam(defaultValue = "50") int size) {
-        Page<Movie> moviesPage = movieService.getAllMovies(PageRequest.of(page, size));
+    public ResponseEntity<List<Movie>> getAllMovies(@RequestParam(defaultValue = "0") int pageNumber,
+                                                    @RequestParam(defaultValue = "50") int pageSize) {
+
+        // Define a pageable request with sorting by average rating
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "voteAverage"));
+
+        Page<Movie> moviesPage = movieService.getAllMovies(pageable);
         List<Movie> movies = moviesPage.getContent();
         System.out.println("list : " + movies);
         return ResponseEntity.ok(movies);
