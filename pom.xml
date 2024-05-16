@@ -8,10 +8,10 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.movie-rental-back</groupId>
-	<artifactId>movie-rental-back</artifactId>
+	<groupId>com.movie-recommendation-back</groupId>
+	<artifactId>movie-recommendation-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>movie-rental-back</name>
+	<name>movie-recommendation-back</name>
 	<description>backend for movie rental project</description>
 	<properties>
 		<java.version>22</java.version>

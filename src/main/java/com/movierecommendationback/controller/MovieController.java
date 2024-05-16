@@ -1,7 +1,7 @@
-package com.movierentalback.controller;
+package com.movierecommendationback.controller;
 
-import com.movierentalback.domain.Movie;
-import com.movierentalback.service.MovieService;
+import com.movierecommendationback.domain.Movie;
+import com.movierecommendationback.service.MovieService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,7 @@ public class MovieController {
     // Endpoint to fetch all movies
     @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies(@RequestParam(defaultValue = "0") int pageNumber,
-                                                    @RequestParam(defaultValue = "50") int pageSize) {
+                                                    @RequestParam(defaultValue = "30") int pageSize) {
 
         // Define a pageable request with sorting by average rating
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "voteAverage"));

@@ -1,1 +1,1 @@
-# movie-rental-back
+# movie-recommendation-back

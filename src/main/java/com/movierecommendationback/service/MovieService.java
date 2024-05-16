@@ -1,7 +1,7 @@
-package com.movierentalback.service;
+package com.movierecommendationback.service;
 
-import com.movierentalback.domain.Movie;
-import com.movierentalback.repository.MovieRepository;
+import com.movierecommendationback.domain.Movie;
+import com.movierecommendationback.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

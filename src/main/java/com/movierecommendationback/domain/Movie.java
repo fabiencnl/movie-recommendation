@@ -1,4 +1,4 @@
-package com.movierentalback.domain;
+package com.movierecommendationback.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

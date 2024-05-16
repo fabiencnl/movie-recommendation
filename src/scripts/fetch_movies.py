@@ -55,7 +55,7 @@ def insert_movies(movies):
     try:
         # Connect to PostgreSQL database
         conn = psycopg2.connect(
-            dbname="movie-rental-back",
+            dbname="movie-recommendation",
             user="postgres",
             password="pingu1999",
             host="localhost"
