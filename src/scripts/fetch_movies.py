@@ -55,10 +55,10 @@ def insert_movies(movies):
     try:
         # Connect to PostgreSQL database
         conn = psycopg2.connect(
-            dbname="movie-recommendation",
-            user="postgres",
-            password="pingu1999",
-            host="localhost"
+            dbname = os.environ.get('DB_USER'),
+            user = os.environ.get('DB_USERNAME'),
+            password = os.environ.get('DB_PASSWORD'),
+            host = os.environ.get('DB_HOST')
         )
 
         # Create a cursor object
