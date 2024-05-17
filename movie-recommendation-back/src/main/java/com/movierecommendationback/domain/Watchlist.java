@@ -16,21 +16,25 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@Table(name = "movie")
-public class Movie {
+@Table(name = "watchlist")
+public class Watchlist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private UUID id;
 
-    private String title;
-    //private String genre; taper sur genre de l'api
-    private String releaseDate;
-    private String overview;
-    //private Integer duration; taper sur details de l'api
-    private float voteAverage;
-    private String posterPath;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @ManyToMany(mappedBy = "movies")
-    private List<Actor> actors;
+    @Column(nullable = false)
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+            name = "watchlist_movies",
+            joinColumns = @JoinColumn(name = "watchlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private List<Movie> movies;
 }
