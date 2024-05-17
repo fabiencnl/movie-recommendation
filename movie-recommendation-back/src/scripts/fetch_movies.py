@@ -55,10 +55,10 @@ def insert_movies(movies):
     try:
         # Connect to PostgreSQL database
         conn = psycopg2.connect(
-            dbname = os.environ.get('DB_USER'),
-            user = os.environ.get('DB_USERNAME'),
-            password = os.environ.get('DB_PASSWORD'),
-            host = os.environ.get('DB_HOST')
+            dbname=os.environ.get('DB_NAME'),
+            user=os.environ.get('DB_USERNAME'),
+            password=os.environ.get('DB_PASSWORD'),
+            host=os.environ.get('DB_HOST')
         )
 
         # Create a cursor object
@@ -97,7 +97,6 @@ def main():
     i = 1
     while i < 151:
         movies = fetch_movies(i)
-
         # If movie data is retrieved successfully, insert into database
         if movies:
             insert_movies(movies)

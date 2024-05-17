@@ -34,4 +34,6 @@ build/
 
 ### Env variables ###
 .env
+env.properties
+application.properties
 
