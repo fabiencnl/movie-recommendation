@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -33,8 +34,14 @@ public class MovieController {
 
         Page<Movie> moviesPage = movieService.getAllMovies(pageable);
         List<Movie> movies = moviesPage.getContent();
-        System.out.println("list : " + movies);
         return ResponseEntity.ok(movies);
     }
-}
 
+    // Endpoint to fetch movie by ID
+    @GetMapping("/{movieId}")
+    public ResponseEntity<String> getMovieDetails(@PathVariable String movieId) {
+        Optional<String> movieDetails = movieService.fetchMovieDetails(movieId);
+        return movieDetails.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(500).body("Error fetching movie details"));
+    }
+}

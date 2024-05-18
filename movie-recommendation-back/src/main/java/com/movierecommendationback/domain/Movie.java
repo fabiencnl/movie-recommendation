@@ -22,15 +22,14 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private UUID id;
+    private String movieId; // Usef to fetch movie specific information
+    private String title; // Displayed on movie card
+    private float voteAverage; // Rating will be displayed on each movie card
+    private String[] genreIds; // Used for genre filtering
+    private String releaseDate; // Used for latest movies or year filter
+    private String posterPath; // Displayed on each movie card
+    private float popularity; //Used for popular filter
 
-    private String title;
-    //private String genre; taper sur genre de l'api
-    private String releaseDate;
-    private String overview;
-    //private Integer duration; taper sur details de l'api
-    private float voteAverage;
-    private String posterPath;
-
-    @ManyToMany(mappedBy = "movies")
-    private List<Actor> actors;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MovieActor> movieActors;
 }

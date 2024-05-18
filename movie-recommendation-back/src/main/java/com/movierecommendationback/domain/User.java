@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.UUID;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@Table(name= "user")
+@Table(name = "\"user\"") // Enclose table name in double quotes
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

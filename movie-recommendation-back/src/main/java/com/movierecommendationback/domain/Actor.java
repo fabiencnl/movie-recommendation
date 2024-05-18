@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,16 +26,9 @@ public class Actor {
     @Column(nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
-    private String bio;
+    @Column(unique = true, nullable = false)
+    private Integer actor_id;
 
-    private LocalDate birthdate;
-
-    @ManyToMany
-    @JoinTable(
-            name = "movie_actors",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    private List<Movie> movies;
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MovieActor> movieActors;
 }
