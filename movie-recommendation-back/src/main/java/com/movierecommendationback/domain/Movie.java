@@ -22,7 +22,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private UUID id;
-    private String movieId; // Usef to fetch movie specific information
+    private String movieId; // Used to fetch movie specific information
     private String title; // Displayed on movie card
     private float voteAverage; // Rating will be displayed on each movie card
     private String[] genreIds; // Used for genre filtering
