@@ -1,0 +1,31 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #282c34;
+  }
+  
+  .app-title {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+  }
+  
+  .header-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .tmdb-logo, .github-logo {
+    width: 40px; /* Adjust size as needed */
+    height: auto;
+    margin-left: 15px; /* Spacing between icons */
+  }
+  
+  .tmdb-logo {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    margin-left: 15px; /* Spacing between icons */
+  }
+  
