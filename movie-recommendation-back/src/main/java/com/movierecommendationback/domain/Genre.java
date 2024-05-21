@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,19 +14,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@Table(name = "actor")
-public class Actor {
+@Table(name = "genre")
+public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
-    private UUID id;
-
-    @Column(nullable = false)
-    private String name;
+    private Integer id;
 
     @Column(unique = true, nullable = false)
-    private Integer actor_id;
-
-    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MovieActor> movieActors;
+    private String name;
 }

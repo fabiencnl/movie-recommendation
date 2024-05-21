@@ -1,6 +1,6 @@
 package com.movierecommendationback.controller;
 
-import com.movierecommendationback.domain.Movie;
+import com.movierecommendationback.dto.MovieDTO;
 import com.movierecommendationback.service.MovieService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,18 +22,17 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-
     // Endpoint to fetch all movies
     @GetMapping
-    public ResponseEntity<List<Movie>> getAllMovies(@RequestParam(defaultValue = "0") int pageNumber,
-                                                    @RequestParam(defaultValue = "30") int pageSize) {
+    public ResponseEntity<Page<MovieDTO>> getAllMovies(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "releaseDate") String sortBy,
+            @RequestParam(defaultValue = "DESC") String sortDirection) {
 
-        // Define a pageable request with sorting by average rating
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "voteAverage"));
-
-        Page<Movie> moviesPage = movieService.getAllMovies(pageable);
-        List<Movie> movies = moviesPage.getContent();
-        return ResponseEntity.ok(movies);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortBy));
+        Page<MovieDTO> movies = movieService.getAllMovies(pageable);
+        return ResponseEntity.ok(movies).hasBody() ? ResponseEntity.ok(movies) : ResponseEntity.status(500).build();
     }
 
     // Endpoint to fetch movie by ID

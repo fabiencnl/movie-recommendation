@@ -1,10 +1,14 @@
 package com.movierecommendationback.service;
 
+import com.movierecommendationback.domain.Genre;
 import com.movierecommendationback.domain.Movie;
+import com.movierecommendationback.dto.MovieDTO;
+import com.movierecommendationback.repository.MovieGenreRepository;
 import com.movierecommendationback.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -32,8 +37,21 @@ public class MovieService {
     private final HttpClient httpClient;
 
     // Method to fetch paginated list of movies
-    public Page<Movie> getAllMovies(Pageable pageable) {
-        return movieRepository.findAll(pageable);
+    @Transactional
+    public Page<MovieDTO> getAllMovies(Pageable pageable) {
+        Page<Movie> movies = movieRepository.findAll(pageable);
+        return movies.map(movie -> {
+            Hibernate.initialize(movie.getGenres());
+            return new MovieDTO(
+                    movie.getId(),
+                    movie.getTitle(),
+                    movie.getReleaseDate(),
+                    movie.getPosterPath(),
+                    movie.getVoteAverage(),
+                    movie.getPopularity(),
+                    movie.getGenres().stream().map(Genre::getName).collect(Collectors.toList())
+            );
+        });
     }
 
 
