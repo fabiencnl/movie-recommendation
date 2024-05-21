@@ -17,9 +17,9 @@ export interface Movie {
     posterPath: string;
     backdropPath?: string;
     releaseDate: string;
-    genreNames: string[]; // Optional because it will be added later
     duration?: string;
-    genres: {id: number, name: string}[]// Updated to use genres directly
+    genreNames: string[],// Updated to use genres directly
+    genres?:{id: Number, name: string}[]
   }
 
   export interface MoviePage {

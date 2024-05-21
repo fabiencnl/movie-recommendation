@@ -3,7 +3,6 @@ package com.movierecommendationback.service;
 import com.movierecommendationback.domain.Genre;
 import com.movierecommendationback.domain.Movie;
 import com.movierecommendationback.dto.MovieDTO;
-import com.movierecommendationback.repository.MovieGenreRepository;
 import com.movierecommendationback.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

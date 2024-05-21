@@ -7,10 +7,8 @@ const fetchMovieDetails = async (id?: string) => {
   if (!id) {
     throw new Error('Movie ID is required');
   }
-
- // const response = await fetch(`http://localhost:8080/api/movies/${id}`);
-  const response = await fetch(`https://movie-recommendation-n2i7.onrender.com/api/movies/${id}`);
-
+//const response = await fetch(`https://movie-recommendation-n2i7.onrender.com/api/movies/${id}`);
+  const response = await fetch(`http://localhost:8080/api/movies/${id}`);
   if (!response.ok) {
     throw new Error('Failed to fetch movie details');
   }
@@ -22,9 +20,9 @@ const MovieDetails: React.FC = () => {
 
   const { data, isLoading, isError } = useQuery<Movie>(
     ['movie', id],
-    () => fetchMovieDetails(id),
+    () => fetchMovieDetails(id as string),
     {
-      enabled: !!id, // Ensure the query runs only if `id` is defined
+      enabled: !!id,
     }
   );
 
@@ -35,33 +33,26 @@ const MovieDetails: React.FC = () => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching movie details</p>;
 
-  const defaultMovie: Movie = {
+  const movie = data ?? {
     id: '',
     title: '',
     overview: '',
     voteAverage: 0,
     popularity: 0,
     actors: [],
-    genreNames: [],
     posterPath: '',
     backdropPath: '',
     releaseDate: '',
     duration: '',
-    genres: []
+    genreNames: [],
+    genres : []
   };
-
-  const movie = data || defaultMovie;
 
   return (
     <div className="movie-details">
       <h2>{movie.title}</h2>
       <p>{movie.overview}</p>
-      <p>
-        Genres:{' '}
-        {movie.genres && movie.genres.length > 0
-          ? movie.genres.map(mg => mg.name).join(', ')
-          : 'No genres available'}
-      </p>
+      <p>Genres: {movie.genres?.map(genre => genre.name).join(', ') || 'No genres available'}</p>
       {/* Display other movie details */}
     </div>
   );

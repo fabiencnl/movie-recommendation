@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { fetchMovies } from './fetchFunctions';
-import { Movie, MoviePage } from './types';
+import { Movie } from './types';
+import MovieCard from './MovieCard';
 
 const MoviesList: React.FC = () => {
   const [sortBy, setSortBy] = useState('voteAverage');
@@ -13,7 +13,7 @@ const MoviesList: React.FC = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery<MoviePage>(
+  } = useInfiniteQuery(
     ['movies', sortBy, sortDirection],
     ({ pageParam = 0 }) => fetchMovies({ pageParam, sortBy, sortDirection }),
     {
@@ -24,7 +24,10 @@ const MoviesList: React.FC = () => {
   const movies: Movie[] = data ? data.pages.flatMap(page => page.content) : [];
 
   const handleScroll = useCallback(() => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2 && hasNextPage && !isFetchingNextPage) {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const threshold = document.body.offsetHeight - 500; // Trigger prefetching 500px before reaching the bottom
+
+    if (scrollPosition >= threshold && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
@@ -45,20 +48,21 @@ const MoviesList: React.FC = () => {
   if (!data) return <p>Loading...</p>;
 
   return (
-    <div className="movies-list">
-      <h2>Latest Movies</h2>
-      <select onChange={handleSortChange}>
-        <option value="voteAverage,DESC">Highest Rating</option>
-        <option value="popularity,DESC">Most Popular</option>
-        <option value="releaseDate,DESC">Newest Releases</option>
-      </select>
-      {movies.map((movie) => (
-        <div key={movie.id}>
-          <Link to={`/movie/${movie.id}`}>{movie.title}</Link>
-          <p>Genres: {movie.genreNames.map(mg => mg).join(', ')}</p>
-        </div>
-      ))}
-      {isFetchingNextPage && <p>Loading more movies...</p>}
+    <div className="movies-list-container">
+      <div className="filter-container">
+        <h2>Latest Movies</h2>
+        <select onChange={handleSortChange}>
+          <option value="voteAverage,DESC">Highest Rating</option>
+          <option value="popularity,DESC">Most Popular</option>
+          <option value="releaseDate,DESC">Newest Releases</option>
+        </select>
+      </div>
+      <div className="movies-list">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+        {isFetchingNextPage && <p>Loading more movies...</p>}
+      </div>
     </div>
   );
 };
