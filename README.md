@@ -1,5 +1,6 @@
 # movie-recommendation
 
+Perks: front pre fetching and caching movies, responsive design
 
 Front stack:
 React 18.3.1

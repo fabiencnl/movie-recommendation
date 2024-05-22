@@ -1,59 +1,37 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { fetchMovieDetails } from './fetchFunctions'; // Assuming this function is defined in fetchFunctions.ts
 import { Movie } from './types';
-
-const fetchMovieDetails = async (id?: string) => {
-  if (!id) {
-    throw new Error('Movie ID is required');
-  }
-//const response = await fetch(`https://movie-recommendation-n2i7.onrender.com/api/movies/${id}`);
-  const response = await fetch(`http://localhost:8080/api/movies/${id}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch movie details');
-  }
-  return response.json();
-};
+//import './MovieDetails.css'; // Import your CSS here
 
 const MovieDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading, isError } = useQuery<Movie>(
-    ['movie', id],
+  const { data: movie, error, isLoading } = useQuery<Movie>(
+    ['movieDetails', id],
     () => fetchMovieDetails(id as string),
     {
       enabled: !!id,
     }
   );
 
-  if (!id) {
-    return <p>Invalid movie ID</p>;
-  }
+  //if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading movie details.</div>;
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error fetching movie details</p>;
-
-  const movie = data ?? {
-    id: '',
-    title: '',
-    overview: '',
-    voteAverage: 0,
-    popularity: 0,
-    actors: [],
-    posterPath: '',
-    backdropPath: '',
-    releaseDate: '',
-    duration: '',
-    genreNames: [],
-    genres : []
-  };
+  if (!movie) return <div>No movie details found.</div>;
 
   return (
-    <div className="movie-details">
-      <h2>{movie.title}</h2>
-      <p>{movie.overview}</p>
-      <p>Genres: {movie.genres?.map(genre => genre.name).join(', ') || 'No genres available'}</p>
-      {/* Display other movie details */}
+    <div className="movie-details-container">
+      <div className="movie-details-header">
+        <img src={`https://image.tmdb.org/t/p/w500${movie.posterPath}`} alt={movie.title} className="movie-details-poster" />
+        <div className="movie-details-info">
+          <h2>{movie.title}</h2>
+          <p>{movie.overview}</p>
+          <p>Rating: {movie.voteAverage}</p>
+          <p>Genres: {movie.genres?.map(genre => genre.name).join(', ')}</p>
+        </div>
+      </div>
     </div>
   );
 };

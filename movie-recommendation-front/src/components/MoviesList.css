@@ -1,0 +1,15 @@
+/* MoviesList.css */
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    background: #1c1c1c;
+}
+
+.movie-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    background-color: #1c1c1c; /* Dark background for the container */
+    padding: 20px;
+}

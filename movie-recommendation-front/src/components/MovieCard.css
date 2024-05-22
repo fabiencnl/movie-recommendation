@@ -1,28 +1,64 @@
+/* MovieCard.css */
+
 .movie-card {
-    cursor: pointer;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin: 10px;
+    text-decoration: none;
+    color: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    max-width: 200px; /* Set a maximum width for the card */
-  }
-  
-  .movie-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .movie-poster {
+    padding: 10px;
+    border: 1px solid #444; /* Darker border */
+    background-color: #2c2c2c; /* Dark background */
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    border-radius: 10px; /* Rounded corners for a softer look */
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Darker shadow effect on hover */
+}
+
+.movie-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.movie-poster {
     width: 100%;
     height: auto;
-  }
-  
-  .movie-info {
+    border-bottom: 1px solid #444; /* Darker border */
+    border-radius: 10px 10px 0 0; /* Rounded corners */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8); /* Darker overlay */
+    color: white;
+    text-align: center;
     padding: 10px;
-  }
-  
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 1rem;
+    border-radius: 0 0 10px 10px; /* Rounded corners */
+}
+
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+
+.movie-title {
+    color: #ff4500; /* Sober red color */
+    font-family: 'Cinzel', serif; /* Cinematic font */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.movie-details {
+    text-align: center;
+    color: #ccc; /* Lighter text color for better contrast */
+    margin-top: 10px;
+}

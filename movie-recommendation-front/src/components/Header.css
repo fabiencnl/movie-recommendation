@@ -1,31 +1,72 @@
-.app-header {
-    display: flex;
-    justify-content: space-between;
+/* Import the Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #1c1c1c;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+
+.film-icon {
+  margin-right: 10px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  height: 30px;
+  width: auto;
+  transition: transform 0.2s;
+  margin-left: 10px;
+}
+
+.tmdb-logo {
+  height: 30px;
+  width: auto;
+}
+
+.header-icons a:hover .logo-icon {
+  transform: scale(1.1);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #282c34;
   }
   
-  .app-title {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5em;
+  .header-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
   }
   
   .header-icons {
-    display: flex;
-    align-items: center;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 1.5rem;
   }
   
-  .tmdb-logo, .github-logo {
-    width: 40px; /* Adjust size as needed */
-    height: auto;
-    margin-left: 15px; /* Spacing between icons */
+  .logo-icon, .tmdb-logo {
+    height: 25px;
   }
-  
-  .tmdb-logo {
-    width: 100px; /* Adjust size as needed */
-    height: auto;
-    margin-left: 15px; /* Spacing between icons */
-  }
-  
+}
