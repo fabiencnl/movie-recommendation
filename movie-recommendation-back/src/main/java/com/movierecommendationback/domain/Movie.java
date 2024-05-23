@@ -21,7 +21,6 @@ public class Movie {
     @Id
     @Column(name = "id", unique = true, nullable = false, updatable = false)
     private Integer id; // Use TMDB movie ID
-    private String movieId; // Used to fetch movie specific information
     private String title; // Displayed on movie card
     private float voteAverage; // Rating will be displayed on each movie card
     private String releaseDate; // Used for latest movies or year filter

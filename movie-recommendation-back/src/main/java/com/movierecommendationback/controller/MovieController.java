@@ -26,10 +26,16 @@ public class MovieController {
     public ResponseEntity<Page<MovieDTO>> getAllMovies(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "releaseDate") String sortBy,
-            @RequestParam(defaultValue = "DESC") String sortDirection) {
+            @RequestParam(defaultValue = "releaseDate") String sortBy) {
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDirection), sortBy));
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(
+                        Sort.Order.desc(sortBy),
+                        Sort.Order.asc("id")
+                )
+        );
         Page<MovieDTO> movies = movieService.getAllMovies(pageable);
         return ResponseEntity.ok(movies).hasBody() ? ResponseEntity.ok(movies) : ResponseEntity.status(500).build();
     }

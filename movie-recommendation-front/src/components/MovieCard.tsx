@@ -16,9 +16,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           alt={movie.title}
           className="movie-poster"
         />
+        <span className="card-rating">{movie.voteAverage.toFixed(1)}</span>
         <div className="overlay">
           <h3>{movie.title}</h3>
-          <p>Rating: {movie.voteAverage}</p>
         </div>
       </div>
       

@@ -7,14 +7,14 @@ export const fetchMovies = async ({
   pageParam = 1,
   sizeParam = 20,
   sortBy = 'releaseDate',
-  sortDirection = 'DESC',
   selectedGenres = []
 }): Promise<MoviePage> => {
-  const response = await fetch(`${API_RENDER_URL}/movies?page=${pageParam}&size=${sizeParam}&sortBy=${sortBy}&sortDirection=${sortDirection}`);
+  const response = await fetch(`${API_RENDER_URL}/movies?page=${pageParam}&size=${sizeParam}&sortBy=${sortBy}`);
   if (!response.ok) {
     throw new Error('Failed to fetch movies');
   }
   const data: MoviePage = await response.json();
+  console.log('reponse:' , data)
   return data;
 };
 

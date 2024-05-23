@@ -1,15 +1,62 @@
 /* MoviesList.css */
 
 .filter-container {
+    background: #1c1c1c;
     display: flex;
     justify-content: center;
-    background: #1c1c1c;
-}
+    position: relative;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px;
+  }
+  
+  .filter-container.fixed {
+    top: 0; /* When the container is fixed, it moves to the top */
+    position:fixed
+  }
+  .movie-cards-container.test {
+    opacity: 0;
+  }
 
-.movie-cards-container {
+  .movie-cards-container.test2 {
+    opacity:1;
+  }
+  
+  .filter-button {
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .filter-button:hover {
+    background: #555;
+    transform: scale(1.1);
+
+  }
+  
+  .movie-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    background-color: #1c1c1c; /* Dark background for the container */
+    background-color: #1c1c1c;
     padding: 20px;
-}
+    padding-top: 60px;
+  }
+  
+  body {
+    overflow-x: hidden;
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  
