@@ -2,27 +2,30 @@ package com.movierecommendationback.service;
 
 import com.movierecommendationback.domain.Genre;
 import com.movierecommendationback.domain.Movie;
-import com.movierecommendationback.dto.MovieDTO;
 import com.movierecommendationback.repository.MovieRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+import com.movierecommendationback.dto.MovieDTO;
+
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@Transactional(rollbackOn = Exception.class)
 @RequiredArgsConstructor
 public class MovieService {
     private final MovieRepository movieRepository;
@@ -35,24 +38,31 @@ public class MovieService {
 
     private final HttpClient httpClient;
 
-    // Method to fetch paginated list of movies
     @Transactional
-    public Page<MovieDTO> getAllMovies(Pageable pageable) {
-        Page<Movie> movies = movieRepository.findAll(pageable);
-        return movies.map(movie -> {
-            Hibernate.initialize(movie.getGenres());
-            return new MovieDTO(
-                    movie.getId(),
-                    movie.getTitle(),
-                    movie.getReleaseDate(),
-                    movie.getPosterPath(),
-                    movie.getVoteAverage(),
-                    movie.getPopularity(),
-                    movie.getGenres().stream().map(Genre::getName).collect(Collectors.toList())
-            );
-        });
+    public Page<MovieDTO> getMoviesByGenreAndSort(
+            List<String> genres, int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(
+                        Sort.Order.desc(sortBy),
+                        Sort.Order.asc("id")
+                )
+        );
+
+        if (genres.isEmpty()) {
+            return movieRepository.findAllMovies(pageable).map(this::convertToDto);
+        } else {
+            return movieRepository.findByGenres(genres, pageable).map(this::convertToDto);
+        }
     }
 
+    private MovieDTO convertToDto(Movie movie) {
+        Set<String> genreNames = movie.getGenres().stream()
+                .map(Genre::getName)
+                .collect(Collectors.toSet());
+        return new MovieDTO(movie.getId(), movie.getTitle(), movie.getPopularity(), movie.getPosterPath(), movie.getReleaseDate(), movie.getVoteAverage(), genreNames);
+    }
 
     public Optional<String> fetchMovieDetails(String movieId) {
         try {

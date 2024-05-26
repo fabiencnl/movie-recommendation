@@ -1,24 +1,21 @@
-
 package com.movierecommendationback.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class MovieDTO {
-
-    private Integer id;
+    private final Integer id;
     private String title;
-    private String releaseDate;
-    private String posterPath;
-    private float voteAverage;
     private float popularity;
-    private List<String> genreNames;
+    private String posterPath;
+    private String releaseDate;
+    private float voteAverage;
+    private Set<String> genres;
 }
+
