@@ -54,6 +54,7 @@
   .header-title {
     font-size: 2rem;
     margin-bottom: 10px;
+    transition: transform 0.2s;
   }
   
   .header-icons {

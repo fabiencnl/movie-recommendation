@@ -18,7 +18,7 @@ export interface Movie {
     backdropPath?: string;
     releaseDate: string;
     duration?: string;
-    genreNames: string[],// Updated to use genres directly
+    genreNames?: string[],// Updated to use genres directly
     genres?:{id: Number, name: string}[]
   }
 
@@ -29,4 +29,9 @@ export interface Movie {
     number: number;
     size: number;
   }
-  
+  export interface FetchMoviesParams {
+    pageParam?: number;
+    sizeParam?: number;
+    sortBy?: string;
+    selectedGenres?: string[];
+  }

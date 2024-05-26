@@ -15,17 +15,10 @@
     top: 0; /* When the container is fixed, it moves to the top */
     position:fixed
   }
-  .movie-cards-container.test {
-    opacity: 0;
-  }
-
-  .movie-cards-container.test2 {
-    opacity:1;
-  }
   
   .filter-button {
+    font-family: 'Poppins', sans-serif;
     transition: transform 0.2s, box-shadow 0.2s;
-
     background: #333;
     color: #fff;
     border: none;
@@ -37,8 +30,13 @@
   .filter-button:hover {
     background: #555;
     transform: scale(1.1);
-
   }
+
+  /* Active (selected) state: keep scaled up */
+.filter-button.active {
+  transform: scale(1.1);
+  background-color: #0056b3; /* Optional: change background color to indicate active state */
+}
   
   .movie-cards-container {
     display: grid;
@@ -55,8 +53,4 @@
     color: #ffffff;
   }
   
-  ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
-  }
   
