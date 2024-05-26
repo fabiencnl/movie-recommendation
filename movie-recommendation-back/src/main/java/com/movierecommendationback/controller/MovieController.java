@@ -1,7 +1,5 @@
 package com.movierecommendationback.controller;
 
-import com.movierecommendationback.domain.Genre;
-import com.movierecommendationback.domain.Movie;
 import com.movierecommendationback.dto.MovieDTO;
 import com.movierecommendationback.service.MovieService;
 import org.springframework.data.domain.Page;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/movies")
