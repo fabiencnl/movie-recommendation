@@ -69,6 +69,7 @@ const GenreSelect: React.FC<Props> = ({ genres, selectedGenres, handleGenreToggl
       <Select
         styles={customStyles}
         options={genres.map(genre => ({ value: genre, label: genre }))}
+        placeholder="Genres..."
         isMulti
         value={selectedGenres.map(genre => ({ value: genre, label: genre }))}
         onChange={handleSelectedGenresChange}
