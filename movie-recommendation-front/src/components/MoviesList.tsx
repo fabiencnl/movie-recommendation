@@ -66,13 +66,10 @@ interface QueryParams {
   const movies: Movie[] = data ? data.pages.flatMap(page => page.content) : [];
 
   const handleScroll = useCallback(() => {
-    console.log('HANDLE SCROLL')
     const scrollPosition = window.innerHeight + window.scrollY;
     const threshold = document.body.offsetHeight - 700; // Trigger prefetching 700px before reaching the bottom
 
     if (scrollPosition >= threshold && hasNextPage && !isFetchingNextPage) {
-      console.log('va falllirlf etchayyy')
-
       fetchNextPage();
     }
 
@@ -99,7 +96,6 @@ interface QueryParams {
 
 
   const handleFilterClick = (newSortBy: string) => {
-    console.log('handle fitler click')
     // Don't refetch if we click on the same filter again
     if (newSortBy != sortBy) {
       //window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -109,7 +105,6 @@ interface QueryParams {
       //window.scrollTo(0, 0);
 
      // window.scrollTo(0, 0);
-     console.log('new sort value: ', newSortBy)
       setSortBy(newSortBy);
       // resetAndRefetch();
       //movieCardsContainerRef.current.classList.remove('test');
@@ -117,10 +112,8 @@ interface QueryParams {
   };
 
   const resetAndRefetch = () => {
-    console.log('prout')
     // Clear the existing data and reset the state
     remove();
-    console.log('REFEeTch ///')
     refetch();
   };
 

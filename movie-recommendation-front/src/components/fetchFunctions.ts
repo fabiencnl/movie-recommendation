@@ -25,7 +25,6 @@ export const fetchMovies = async ({
         throw new Error('Failed to fetch movies');
       }
       const data: MoviePage = await response.json();
-      console.log('reponse:' , data)
       return data;
     };
 

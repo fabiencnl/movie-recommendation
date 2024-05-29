@@ -1,0 +1,55 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.1.0'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: |
+          cd movie-recommendation-front
+          npm install
+
+      - name: Add missing Babel plugin dependency
+        run: |
+          cd movie-recommendation-front
+          npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+      - name: Lint code
+        run: |
+          cd movie-recommendation-front
+          npm run lint
+
+      - name: Run tests
+        run: |
+          cd movie-recommendation-front
+          npm test -- --passWithNoTests
+
+      - name: Build
+        run: |
+          cd movie-recommendation-front
+          npm run build
