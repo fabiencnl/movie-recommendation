@@ -1,0 +1,16 @@
+# Dockerfile-maven
+FROM openjdk:21-jdk-slim
+
+RUN apt-get update && \
+    apt-get install -y maven && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set up Maven
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
+# Add Maven to PATH
+ENV PATH $MAVEN_HOME/bin:$PATH
+
+CMD ["mvn", "-v"]
