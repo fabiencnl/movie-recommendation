@@ -5,6 +5,7 @@ Perks: front pre fetching and caching movies, responsive design
 Front stack:
 React 18.3.1
 Typescript 4.9.5
+Node 22.1.0
 
 react with Typescript
 Back stack:

@@ -142,12 +142,7 @@ interface QueryParams {
 
   const handleGenreToggle = (selectedGenres: string[]) => {
     setSelectedGenres(selectedGenres);
-  };
-
-  // const handleSelectedGenresChange = (selectedOptions: any) => {
-  //   const selectedGenresList = selectedOptions ? selectedOptions.map((option: any) => option.value) : [];
-  //   handleGenreToggle(selectedGenresList);
-  // };
+  }
   
   return (
     <div className="movies-list">
