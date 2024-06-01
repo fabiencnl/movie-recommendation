@@ -31,25 +31,25 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd movie-recommendation-front
+          cd movie-recs
           npm install
 
       - name: Add missing Babel plugin dependency
         run: |
-          cd movie-recommendation-front
+          cd movie-recs
           npm install --save-dev @babel/plugin-proposal-private-property-in-object
 
       - name: Lint code
         run: |
-          cd movie-recommendation-front
+          cd movie-recs
           npm run lint
 
       - name: Run tests
         run: |
-          cd movie-recommendation-front
+          cd movie-recs
           npm test -- --passWithNoTests
 
       - name: Build
         run: |
-          cd movie-recommendation-front
+          cd movie-recs
           npm run build

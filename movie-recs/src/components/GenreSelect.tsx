@@ -65,7 +65,7 @@ const GenreSelect: React.FC<Props> = ({ genres, selectedGenres, handleGenreToggl
   };
 
   return (
-    <div style={{ maxWidth: '100%', minWidth: '200px' }}>
+    <div style={{ maxWidth: '100%', minWidth: '200px', marginLeft: '10px' }}>
       <Select
         styles={customStyles}
         options={genres.map(genre => ({ value: genre, label: genre }))}

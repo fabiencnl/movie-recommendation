@@ -1,4 +1,3 @@
-// FilterButton.tsx
 import React from 'react';
 
 interface FilterButtonProps {

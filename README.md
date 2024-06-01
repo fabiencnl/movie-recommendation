@@ -1,4 +1,11 @@
 # Movies Recommendation App
+## ⚠️ Attention
+This project is a work in progress. Still have quite a lot of work to do:
+- authentication, with Spring Security
+- Movie page design and display
+- Might do a list of favorites and then add a "recommendations" category based on those favorites
+
+Key challenges in this project include integrating with a movie API to fetch real-time data, storing it in database, designing an intuitive and visually appealing user interface, implementing navigation between different pages efficiently, managing state and data flow within the React components.
 
 A full stack movies recommendation application using React and Spring Boot.
 

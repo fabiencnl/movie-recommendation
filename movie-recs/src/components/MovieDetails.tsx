@@ -16,7 +16,7 @@ const MovieDetails: React.FC = () => {
     }
   );
 
-  //if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading movie details.</div>;
 
   if (!movie) return <div>No movie details found.</div>;

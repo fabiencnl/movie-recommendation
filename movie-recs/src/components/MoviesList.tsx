@@ -1,42 +1,21 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { fetchMovies, fetchGenres } from './fetchFunctions';
-import { Movie } from './types';
+import { MovieLight, sortByFilters } from './types';
 import MovieCard from './MovieCard';
-import './MoviesList.css'; // Import your CSS here
 import FilterButton from './FilterButton';
-import Select from 'react-select';
 import GenreSelect from './GenreSelect'; // Adjust the import path as necessary
-
-type Props = {
-  genres: string[];
-  selectedGenres: string[];
-  handleGenreToggle: (selectedGenres: string[]) => void;
-};
+import './MoviesList.css'; 
 
 const MoviesList: React.FC = () => {
-  const sizeParam = 20;
   const [sortBy, setSortBy] = useState('releaseDate');
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const filterContainerRef = useRef<HTMLDivElement>(null);
-  const movieCardsContainerRef = useRef<HTMLDivElement>(null);
-  //const [activeFilter, setActiveFilter] = useState<string>('');
-  const [queryKey, setQueryKey] = useState(['movies']);
-  const refetchRef = useRef<() => void>(() => {});
   const [genres, setGenres] = useState<string[]>([]);
 
-// Define the type for the query parameters
-interface QueryParams {
-  sortBy: string;
-  selectedGenres: string[];
-}
-
-  const filters = [
-    { label: 'Adventure', value: 'Adventure' },
-    { label: 'horror', value: 'horror' },
-    { label: 'anime', value: 'anime' },
-    {label:'Western', value:'Western'}
-  ];
+  const queryKey = useState(['movies']);
+  const filterContainerRef = useRef<HTMLDivElement>(null);
+  const movieCardsContainerRef = useRef<HTMLDivElement>(null);
+  const sizeParam = 20; // Amount of movies displayed per page
 
   const {
     data,
@@ -63,7 +42,7 @@ interface QueryParams {
     getGenres();
   }, []); // Empty dependency array ensures this effect runs once on mount
 
-  const movies: Movie[] = data ? data.pages.flatMap(page => page.content) : [];
+  const movies: MovieLight[] = data ? data.pages.flatMap(page => page.content) : [];
 
   const handleScroll = useCallback(() => {
     const scrollPosition = window.innerHeight + window.scrollY;
@@ -97,48 +76,23 @@ interface QueryParams {
 
   const handleFilterClick = (newSortBy: string) => {
     // Don't refetch if we click on the same filter again
-    if (newSortBy != sortBy) {
-      //window.scrollTo({ top: 0, behavior: 'smooth' });
-      //event.preventDefault()
-      //if (!movieCardsContainerRef.current) return;
-      //movieCardsContainerRef.current.classList.add('test');
-      //window.scrollTo(0, 0);
-
-     // window.scrollTo(0, 0);
+    if (newSortBy !== sortBy) {
       setSortBy(newSortBy);
-      // resetAndRefetch();
-      //movieCardsContainerRef.current.classList.remove('test');
     }
   };
 
-  const resetAndRefetch = () => {
+
+  const resetAndRefetch = useCallback(() => {
     // Clear the existing data and reset the state
-    remove();
-    refetch();
-  };
+    remove();  // Assuming remove is defined elsewhere
+    refetch(); // Assuming refetch is defined elsewhere
+    console.log('pipi')
+  }, [remove, refetch]); // Dependencies for the useCallback
 
   useEffect(() => {
+    console.log('caca')
     resetAndRefetch();
-  }, [selectedGenres, sortBy]);
-
-  // const handleGenreToggle2 = (genre: string) => {
-  //   console.log(' HANDLE GENRE TOGGLE KEK')
-  //   console.log('genre: ', genre)
-
-  //   let updatedSlectedGenres = [];
-
-  //   if (selectedGenres.includes(genre)) {
-  //     // If the genre is included, remove it
-  //     updatedSlectedGenres = selectedGenres.filter((g) => g !== genre);
-  //   } else {
-  //     // If the genre is not included, add it
-  //     updatedSlectedGenres = [...selectedGenres, genre];
-  //   }
-  //   setSelectedGenres(updatedSlectedGenres)
-
-  //   console.log('selected genres : ', updatedSlectedGenres);
-  // };
-
+  }, [selectedGenres, sortBy, resetAndRefetch]);
 
   const handleGenreToggle = (selectedGenres: string[]) => {
     setSelectedGenres(selectedGenres);
@@ -148,15 +102,16 @@ interface QueryParams {
     <div className="movies-list">
       {/* Filter section */}
       <div className="filter-container" ref={filterContainerRef}>
-        <button className='filter-button' onClick={() => handleFilterClick('releaseDate')}>
-          Newest Releases
-        </button>
-        <button className='filter-button' onClick={() => handleFilterClick('popularity')}>
-          Most Popular
-        </button>
-        <button className='filter-button' onClick={() => handleFilterClick('voteAverage')}>
-          Top Rated
-        </button>
+      {sortByFilters.map((filter) => (
+        <FilterButton
+          key={filter.value}
+          label={filter.label}
+          isActive={sortBy === filter.value}
+          onClick={() => {
+            handleFilterClick(filter.value);
+          }}
+        />
+      ))}
         
         <div className='genre-select-container'>
           <GenreSelect

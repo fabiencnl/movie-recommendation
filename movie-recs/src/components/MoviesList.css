@@ -23,8 +23,13 @@
     color: #fff;
     border: none;
     padding: 10px 20px;
-    margin: 0 5px;
+    margin: 0 7px;
     cursor: pointer;
+    border-radius:10px 10px 10px 10px;
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center; /* Ensure text is centered */
   }
   
   .filter-button:hover {

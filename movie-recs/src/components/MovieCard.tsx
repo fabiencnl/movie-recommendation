@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Movie } from './types';
+import { MovieLight } from './types';
 import './MovieCard.css'; // Import your CSS here
 
 interface MovieCardProps {
-  movie: Movie;
+  movie: MovieLight;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {

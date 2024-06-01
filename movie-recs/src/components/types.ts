@@ -22,8 +22,18 @@ export interface Movie {
     genres?:{id: Number, name: string}[]
   }
 
+  export interface MovieLight {
+    id: string;
+    title: string;
+    voteAverage: number;
+    popularity: number
+    genres: string[]
+    posterPath: string;
+    releaseDate: string;
+  }
+
   export interface MoviePage {
-    content: Movie[];
+    content: MovieLight[];
     totalPages: number;
     totalElements: number;
     number: number;
@@ -35,3 +45,9 @@ export interface Movie {
     sortBy?: string;
     selectedGenres?: string[];
   }
+
+  export const sortByFilters = [
+  { value: 'releaseDate', label: 'Newest Releases' },
+  { value: 'voteAverage', label: 'Top Rated' },
+  { value: 'popularity', label: 'Most Popular' }
+];
