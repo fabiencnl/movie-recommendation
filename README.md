@@ -30,14 +30,19 @@ A full stack movies recommendation application using React and Spring Boot.
 
 ## Technologies Used
 ### Frontend
-- React
-- Redux
-- Axios
-
+- React 18.3.1
+- Typescript 4.9.5
+- Node 22.1.0
+- 
 ### Backend
-- Spring Boot
-- Hibernate
-- PostgreSQL
+- Java 21
+- Spring boot 3.2.5
+- Lombok, Hibernate
+- Python 3.12.3
+- PostgreSQL 16.3.1
+- Docker
+- Cron-job to ping the app every 10 minutes (probably not working, app still sleeps after inactivity)
+- Deployed on render
 
 ## Getting Started
 ### Prerequisites
@@ -49,3 +54,10 @@ A full stack movies recommendation application using React and Spring Boot.
 1. Clone the repo
    ```bash
    git clone https://github.com/yourusername/movies-recommendation-app.git
+
+2. Steps
+   - Get API key for free on TMDB account
+   - Create PSQL localhost database
+   - Create env.properties file in backend, required variables are API_KEY, API_TOKEN, TMDB_GET_MOVIE_INFO_URL (https://api.themoviedb.org/3/movie/)
+DB_NAME, DB_PORT, DB_HOST, DB_USERNAME, DB_PASSWORD
+   - npm start for front, run backend application
