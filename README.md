@@ -53,7 +53,7 @@ A full stack movies recommendation application using React and Spring Boot.
 ### Installation
 1. Clone the repo
    ```bash
-   git clone https://github.com/yourusername/movies-recommendation-app.git
+   git clone https://github.com/fabiencnl/movies-recommendation-app.git
 
 2. Steps
    - Get API key for free on TMDB account
